@@ -1,3 +1,4 @@
+profilename="hthorne"
 branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ "$branch" = "master" ]
@@ -10,8 +11,16 @@ else
 fi
 
 rootdomain=$(echo $2 | rev | cut -d '.' -f1-2 | rev)
-echo $rootdomain
 
+cd terraform
+terraform init -reconfigure
 terraform $1 -auto-approve \
 -var "websitename=$websitename" \
 -var "rootdomain=$rootdomain" 
+
+if [ "$1" = "apply" ]
+then
+    s3bucket=$(terraform output s3bucketname)
+    cd ..
+    aws s3 sync website s3://$s3bucket --profile $profilename
+fi
