@@ -13,7 +13,7 @@ fi
 rootdomain=$(echo $2 | rev | cut -d '.' -f1-2 | rev)
 
 cd terraform
-terraform init -backend-config= -reconfigure
+terraform init -reconfigure
 terraform $1 -auto-approve \
 -var "websitename=$websitename" \
 -var "rootdomain=$rootdomain" 
