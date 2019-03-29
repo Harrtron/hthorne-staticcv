@@ -1,4 +1,4 @@
-profilename="hthorne"
+profilename=$3
 branch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 if [ "$branch" = "master" ]
@@ -13,7 +13,7 @@ fi
 rootdomain=$(echo $2 | rev | cut -d '.' -f1-2 | rev)
 
 cd terraform
-terraform init -reconfigure
+terraform init -backend-config= -reconfigure
 terraform $1 -auto-approve \
 -var "websitename=$websitename" \
 -var "rootdomain=$rootdomain" 
