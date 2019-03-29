@@ -1,6 +1,8 @@
 language: bash
 os: osx
 before_install:
+- brew install awscli
 - brew install terraform 
-scrpt: ./build.sh apply cv.harleythorne.com hthorne
-
+script:
+- ./build.sh apply cv.harleythorne.com hthorne
+- ./build.sh destroy cv.harleythorne.com hthorne
