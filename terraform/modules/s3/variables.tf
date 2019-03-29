@@ -1,0 +1,3 @@
+variable "websitename" {
+    type = "string"
+}
